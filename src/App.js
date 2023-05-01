@@ -1,7 +1,10 @@
-import React,  from "react";
-import BotCollection from "./components/BotCollection";
-import YourBotArmy from "./components/YourBotArmy";
-import SortBar from ""
+import React, { Component } from 'react';
+import BotCollection from './components/BotCollection';
+import YourBotArmy from './components/YourBotArmy';
+import SortBar from './components/SortBar';
+import FilterBar from './components/FilterBar';
+import BotSpecs from './components/BotSpecs';
+import './App.css';
 
 class App extends Component {
   state = {
@@ -13,14 +16,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("http:??localhost:8001/bots")
-    .then(r => r.json())
-    .then(bots => this.setState({bots}))
+    fetch('http://localhost:8001/bots')
+      .then(response => response.json())
+      .then(bots => this.setState({bots}))
   }
 
-  handleEnlistBot  = (bot) => {
+  handleEnlistBot = (bot) => {
     if (!this.state.army.includes(bot)) {
-      const updatedArray = [...this.state.army, bot];
+      const updatedArmy = [...this.state.army, bot];
       this.setState({
         army: updatedArmy
       })
@@ -28,32 +31,31 @@ class App extends Component {
   }
 
   handleReleaseBot = (bot) => {
-    const updatedArmy = this.state.armymfilter(b => b !== bot);
+    const updatedArmy = this.state.army.filter(b => b !== bot);
     this.setState({army: updatedArmy});
   }
 
   handleDeleteBot = (bot) => {
-    fetch (`http://localhost:8001/bots/${bot.id}`, {
+    fetch(`http://localhost:8001/bots/${bot.id}`, {
       method: 'DELETE'
     })
-
-    .then (response => response.json())
-    .then(() => {
-      const updatedBots = this.state.bots.filter(b => b!== bot);
-      this.setState({
-        bots: updatedBots,
-        army: this.state.army.filter(b => b!== bot),
-        selectedBot: null
-      })
-    })
+      .then(response => response.json())
+      .then(() => {
+        const updatedBots = this.state.bots.filter(b => b !== bot);
+        this.setState({
+          bots: updatedBots,
+          army: this.state.army.filter(b => b !== bot),
+          selectedBot: null
+        })
+      });
   }
 
   handleSelectBot = (bot) => {
     this.setState({selectedBot: bot});
   }
 
-  hanldeBackToCollection = () => {
-    this.setState({selectedBot: null})
+  handleBackToCollection = () => {
+    this.setState({selectedBot: null});
   }
 
   handleSortOptionChange = (option) => {
@@ -67,14 +69,14 @@ class App extends Component {
     }
   }
 
-  handleRemoveFilter = (bot-class) => {
+  handleRemoveFilter = (bot_class) => {
     const updatedFilters = this.state.filters.filter(f => f !== bot_class);
-    this.setState({filters: updatedFilters})
+    this.setState({filters: updatedFilters});
   }
 
   getFilteredBots = () => {
     return this.state.bots.filter(bot => {
-      return this.state.filters.length === 0 || this.state.includes(bot.bot_class)
+      return this.state.filters.length === 0 || this.state.filters.includes(bot.bot_class)
     })
   }
 
@@ -86,58 +88,32 @@ class App extends Component {
     return sortedBots;
   }
 
-  render () {
+  render() {
     const {bots, army, selectedBot, sortOption, filters} = this.state;
-    let displayContent;
+    let displayComponent;
 
-    if (selectedBot) { 
-      displayContent = <BotSpecs bot={selectedBot onBackToCollection={this.hanldeBackToCollection} onEnlistBot={this.handleEnlistBot} /> }
-    }
-    else {
+    if (selectedBot) {
+      displayComponent = <BotSpecs bot={selectedBot} onBackToCollection={this.handleBackToCollection} onEnlistBot={this.handleEnlistBot}/>
+    } else {
       displayComponent = (
         <>
-        <SortBar sortOption={sortOption} onSortOptionChange={this.handleSortOptionChange} />
-        <Filterbar filtesr={filters onFilterClass={this.handleFilterClass} onRemoveFilter={this.handleRemoveFilter} /> 
-        <div className="container">
-          <BotCollection bots={this.getSortedBots()} onEnlistBot={{this.handleEnlistBot}} onSelectBot={this.handleSelectBot} />
-          <YourBotArmy bots={army} onrReleaseBot={this.handleReleaseBot} onDeleteBot={this.handleDeleteBot} onSelectBot={this.handleSelectBot} />
-        </div>
-
+          <SortBar sortOption={sortOption} onSortOptionChange={this.handleSortOptionChange}/>
+          <FilterBar filters={filters} onFilterClass={this.handleFilterClass} onRemoveFilter={this.handleRemoveFilter}/>
+          <div className="container">
+            <BotCollection bots={this.getSortedBots()} onEnlistBot={this.handleEnlistBot} onSelectBot={this.handleSelectBot}/>
+            <YourBotArmy bots={army} onReleaseBot={this.handleReleaseBot} onDeleteBot={this.handleDeleteBot} onSelectBot={this.handleSelectBot}/>
+          </div>
         </>
       )
-      
     }
-        
-        
-    
 
-
-
-
-
-
-
-
-
-
-  return ( 
-    <div className ="App"
-    
-    ><h1>Bot Battle</h1>
-    
-    
-    </div>
-  )
-  
-
-
-
-
-
-
-
-
+    return (
+      <div className="App">
+        <h1>Bot Battlr</h1>
+        {displayComponent}
+      </div>
+    );
+  }
 }
-
 
 export default App;
