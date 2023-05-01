@@ -36,3 +36,6 @@ const BotCard = ({bot, buttonText, onClick, onSelect, onDelete}) => {
 
 
 }
+
+
+export default BotCard;
