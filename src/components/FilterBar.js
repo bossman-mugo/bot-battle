@@ -12,6 +12,15 @@ const FilterBar = ({filters, onFilterClass, onRemoveFilter}) => {
         onRemoveFilter(bot_class)
     }
 
+    const filterButtons = classOptions.map((option) => {
+        if (filters.includes(option)) {
+            return <button key ={option} className="selected" onClick={() => handleRemoveClick(option)}>{option}</button>
+
+        }else{
+            return <button key={option} onClick={() => handleClassChange({target: {value: option}})}>{option}</button>
+        }
+    })
+
 return (
     <div>
         <h3>Classes</h3>
