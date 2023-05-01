@@ -28,6 +28,23 @@ class App extends Component {
     const updatedArmy = this.state.armymfilter(b => b !== bot);
     this.setState({army: updatedArmy});
   }
+
+  handleDeleteBot = (bot) => {
+    fetch (`http://localhost:8001/bots/${bot.id}`, {
+      method: 'DELETE'
+    })
+
+    .then (response => response.json())
+    .then(() => {
+      const updatedBots = this.state.bots.filter(b => b!== bot);
+      this.setState({
+        bots: updatedBots,
+        army: this.state.army.filter(b => b!== bot),
+        selectedBot: null
+      })
+    })
+  }
+
   
 
   
