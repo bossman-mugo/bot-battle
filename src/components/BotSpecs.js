@@ -12,3 +12,6 @@ const BotSpecs = ({bot, onBackToCollection, onEnlistBot}) => {
         </div>
     )
 }
+
+
+export default BotSpecs;
