@@ -90,23 +90,26 @@ class App extends Component {
     const {bots, army, selectedBot, sortOption, filters} = this.state;
     let displayContent;
 
-    if (slectedBot) { 
+    if (selectedBot) { 
       displayContent = <BotSpecs bot={selectedBot onBackToCollection={this.hanldeBackToCollection} onEnlistBot={this.handleEnlistBot} /> }
     }
     else {
       displayComponent = (
         <>
         <SortBar sortOption={sortOption} onSortOptionChange={this.handleSortOptionChange} />
-        
-        
-        
-        
-        
-        
+        <Filterbar filtesr={filters onFilterClass={this.handleFilterClass} onRemoveFilter={this.handleRemoveFilter} /> 
+        <div className="container">
+          <BotCollection bots={this.getSortedBots()} onEnlistBot={{this.handleEnlistBot}} onSelectBot={this.handleSelectBot} />
+          <YourBotArmy bots={army} onrReleaseBot={this.handleReleaseBot} onDeleteBot={this.handleDeleteBot} onSelectBot={this.handleSelectBot} />
+        </div>
+
         </>
       )
+      
     }
-  }
+        
+        
+    
 
 
 
