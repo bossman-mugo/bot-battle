@@ -64,6 +64,11 @@ class App extends Component {
     }
   }
 
+  handleRemoveFilter = (bot-class) => {
+    const updatedFilters = this.state.filters.filter(f => f !== bot_class);
+    this.setState({filters: updatedFilters})
+  }
+
   
   
 
