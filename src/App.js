@@ -69,7 +69,15 @@ class App extends Component {
     this.setState({filters: updatedFilters})
   }
 
-  
+
+  return ( 
+    <div className ="App"
+    
+    ><h1>Bot Battle</h1>
+    
+    
+    </div>
+  )
   
 
 
