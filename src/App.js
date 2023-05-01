@@ -48,6 +48,15 @@ class App extends Component {
   handleSelectBot = (bot) => {
     this.setState({selectedBot: bot});
   }
+
+  hanldeBackToCollection = () => {
+    this.setState({selectedBot: null})
+  }
+
+  handleSortOptionChange = (option) => {
+    this.setState({sortOption: option})
+  }
+
   
   
 
