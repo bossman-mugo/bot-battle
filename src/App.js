@@ -57,6 +57,13 @@ class App extends Component {
     this.setState({sortOption: option})
   }
 
+  handleFilterClass = (bot_class) => {
+    if (!this.state.filters.includes(bot_class)) {
+      const updatedFilters = [...this.state.filters, bot_class];
+      this.setState({filters: updatedFilters})
+    }
+  }
+
   
   
 
