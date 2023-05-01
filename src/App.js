@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React,  from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    bots: [],
+    army: [],
+    selectedBot: null,
+    sortOption: "health",
+    filters: []
+  }
+
+  componentDidMount() {
+    fetch("http:??localhost:8001/bots")
+    .then(r => r.json())
+    .then(bots => this.setState({bots}))
+  }
+
+  handleEnlistBot  = (bot) => {
+    if (!this.state.army.includes(bot)) {
+      const updatedArray = [...this.state.army, bot];
+      this.setState({
+        army: updatedArmy
+      })
+    }
+  }
+
+  handleReleaseBot = (bot) => {
+    const updatedArmy = this.state.armymfilter(b => b !== bot);
+    this.setState({army: updatedArmy});
+  }
+  
+
+  
+
+
+
+
+
+
+
+
 }
-
-export default App;
