@@ -1,4 +1,7 @@
 import React,  from "react";
+import BotCollection from "./components/BotCollection";
+import YourBotArmy from "./components/YourBotArmy";
+import SortBar from ""
 
 class App extends Component {
   state = {
@@ -69,6 +72,50 @@ class App extends Component {
     this.setState({filters: updatedFilters})
   }
 
+  getFilteredBots = () => {
+    return this.state.bots.filter(bot => {
+      return this.state.filters.length === 0 || this.state.includes(bot.bot_class)
+    })
+  }
+
+  getSortedBots = () => {
+    const sortOption = this.state.sortOption;
+    const sortedBots = [...this.getFilteredBots()].sort((a, b) => {
+      return b[sortOption] - a[sortOption]
+    });
+    return sortedBots;
+  }
+
+  render () {
+    const {bots, army, selectedBot, sortOption, filters} = this.state;
+    let displayContent;
+
+    if (slectedBot) { 
+      displayContent = <BotSpecs bot={selectedBot onBackToCollection={this.hanldeBackToCollection} onEnlistBot={this.handleEnlistBot} /> }
+    }
+    else {
+      displayComponent = (
+        <>
+        <SortBar sortOption={sortOption} onSortOptionChange={this.handleSortOptionChange} />
+        
+        
+        
+        
+        
+        
+        </>
+      )
+    }
+  }
+
+
+
+
+
+
+
+
+
 
   return ( 
     <div className ="App"
@@ -88,3 +135,6 @@ class App extends Component {
 
 
 }
+
+
+export default App;
