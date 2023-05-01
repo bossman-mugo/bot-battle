@@ -45,8 +45,10 @@ class App extends Component {
     })
   }
 
+  handleSelectBot = (bot) => {
+    this.setState({selectedBot: bot});
+  }
   
-
   
 
 
