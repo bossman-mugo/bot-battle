@@ -2,9 +2,9 @@ import React from "react";
 import BotCard from "./BotCard";
 
 
-const YourBotarmy = ({bots, onrReleaseBot, onDeleteBot, onSelectBot}) => {
+const YourBotArmy = ({bots, onrReleaseBot, onDeleteBot, onSelectBot}) => {
 
-    const botCards = 
+    const botCards = bots.map(bot => <BotCard key={bot.id} bot={bot} buttonText="Release Bot" onClick={() => onrReleaseBot(bot)} onDelete={() => onDeleteBot(bot)} onSelect={() => onSelectBot(bot)} />)
 
 
 
@@ -18,5 +18,7 @@ return (
 
 
 }
+
+export default YourBotArmy;
 
 
