@@ -3,6 +3,11 @@ import React from "react";
 
 
 const SortBar = ({sortOption, onSortOptionChange}) => {
+
+    function handleChange(event){
+        onSortOptionChange(event.target.value)
+
+    }
     
     return (
         <div>
