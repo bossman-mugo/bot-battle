@@ -1,9 +1,12 @@
 import React from "react";
 
+
+// component filetbar that takes in props such as filters, onfilterClass and onRemoveFilter
 const FilterBar = ({filters, onFilterClass, onRemoveFilter}) => {
 
     const classOptions = ["Support", "Medic", "Assault", "Defender", "Captain", "Witch"];
 
+    
     const handleClassChange = (e) => {
         onFilterClass(e.target.value)
     }
